@@ -13,6 +13,7 @@ This project implements three models:
   1. A basic baseline model that simply adds a space after every one or two characters.
   2. A Conditional Random Field model, using the CRFSUITE library.
   3. A Compression-based model.
+
 The dataset used is a standard corpus provided by Beijing University, that was used in the SIGHAN Bakeoff.
 
 ###Files  
