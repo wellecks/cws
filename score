@@ -217,11 +217,9 @@ $F = (1 + $beta)*$P*$R/($beta * $P + $R);
 $F = sprintf("%2.3f", $F);
 $RawRecall = sprintf("%2.3f", $RawRecall);
 $RawPrecision = sprintf("%2.3f", $RawPrecision);
-#if ($verbose == 1){
-    print STDERR "=== TOTAL TRUE WORDS RECALL:\t$RawRecall\n";
-    print STDERR "=== TOTAL TEST WORDS PRECISION:\t$RawPrecision\n";
-    print STDERR "=== F MEASURE:\t$F\n";
-#}
+print STDERR "=== TOTAL TRUE WORDS RECALL:\t$RawRecall\n";
+print STDERR "=== TOTAL TEST WORDS PRECISION:\t$RawPrecision\n";
+print STDERR "=== F MEASURE:\t$F\n";
 if ($OOV > 0) {
     $OOVMISSED = sprintf("%2.3f", 1 - $OOVMISSED / $OOV);
 }
