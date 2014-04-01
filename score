@@ -3,7 +3,7 @@
 ## 
 #  SIGHAN score script modified by Sean Welleck. 
 #  By default, the script only prints the final score to STDOUT, and
-#  print the total recall, precision, and F-measure to STDERR. The script
+#  prints the total recall, precision, and F-measure to STDERR. The script
 #  contains an optional -v (verbose) parameter to print all output.
 #  The script outputs an average of Precision, Recall, and F-Measure.
 #
@@ -64,7 +64,8 @@ $USAGE = "Usage:\t$0 dictionary truth test [-v]\n\t";
 
 if (@ARGV <= 2 or @ARGV >= 5) {print "$USAGE\n"; exit;}
 
-# set the verbose flag
+# Set the verbose flag (modification).
+# Print statements are now enclosed with if ($verbose == 1) { ... }.
 if (@ARGV == 4 and $ARGV[3] eq "-v") {
     $verbose = 1;
 }
@@ -241,6 +242,9 @@ if ($verbose == 1){
 
     print "###\t$file2\t$Ins\t$Del\t$Subst\t$Tot\t$Truecount\t$Testcount\t$RawRecall\t$RawPrecision\t$F\t$OOV\t$OOVMISSED\t$IVMISSED\n";
 }
+
+# Compute and print the equally weighted sum of 
+# recall, precision, F-measure (modification).
 $SCORE = sprintf("%2.6f", (1/3)*$RawRecall + (1/3)*$RawPrecision + (1/3)*$F);
 print "$SCORE\n";
 exit(0);
