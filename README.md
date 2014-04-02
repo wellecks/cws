@@ -9,10 +9,9 @@ To illustrate with a couple English examples, first consider the character seque
 The CWS problem is to transform an input character sequence S without spaces to a sequence S', where S' contains spaces between word segments. Numerous methods have been developed or applied to the problem, such as the Compression-Based algorithm, Conditional Random Fields, and the Maximum Entropy Model. 
 
 ##This Project
-This project implements three models:
+This project implements two models:
   1. A basic baseline model that simply adds a space after every one or two characters.
   2. A Conditional Random Field model, using the CRFSUITE library.
-  3. A Compression-based model.
 
 The dataset used is a standard corpus provided by Beijing University, that was used in the SIGHAN Bakeoff.
 
