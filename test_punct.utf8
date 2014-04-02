@@ -1,0 +1,3 @@
+[?1034h> /Users/Sean/Documents/College/Grad/cis526/project/cws/chunking.py(46)feature_extractor()
+-> map(lambda x: x['F'].append("punct=" + is_punct(x['w'])), X)
+(Pdb) 
