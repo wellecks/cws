@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ### crf_formatter.py
-# Converts files to / from SIGHAN and CRFSUITE formats.
-# Use -c flag for SIGHAN      -> CRFSUITE.
-# Use -s flag for CRFSUITE    -> SIGHAN.
+# Converts files to / from SIGHAN TAGGED TAGGED formats.
+# Use -c flag for SIGHAN      -> TAGGED.
+# Use -s flag for TAGGED      -> SIGHAN.
 # Use -p flag for predictions -> SIGHAN.
 # Use -i flag to specify input filename.
 # Use -n flag to specify number of input lines.
@@ -16,14 +16,15 @@ import codecs
 import optparse
 import sys
 
-# Converts a segmented corpus in SIGHAN format into a CRFSuite-formatted file.
-# Format:
+# Converts a segmented corpus in SIGHAN format into a TAGGED file.
+# Output Format:
 #    CHAR B
 #    CHAR N
 #    ...
 # B = beginning of word tag. N = non-beginning of word tag.
 # CHAR = Chinese character. A blank line separates sentences.
 # segname - filename of segmented corpus
+# n - number of lines to convert
 def sighan_to_crf(segname, n):
 	sys.stderr.write("Converting SIGHAN to CRFSUITE format.")
 	out = codecs.getwriter("utf-8")(sys.stdout)
@@ -46,10 +47,10 @@ def sighan_to_crf(segname, n):
 		n -= 1
 		if n == 0: break
 
-# Converts a CRFSuite-formatted file into a segmented SIGHAN format file.
+# Converts a TAGGED file into a segmented SIGHAN format file.
 # The SIGHAN format is one sentence per line, words delimited by two spaces.
 def crf_to_sighan(crfname, n):
-	sys.stderr.write("Converting CRFSUITE to SIGHAN format.")
+	sys.stderr.write("Converting TAGGED to SIGHAN format.")
 	out = codecs.getwriter("utf-8")(sys.stdout)
 	start = True
 	for line in codecs.open(crfname, 'r', encoding='utf-8'):
@@ -82,20 +83,21 @@ def crf_predictions_to_sighan(test_chars, predicted_tags):
 			else:
 				f.write(char + ' ' + tag)
 	crf_to_sighan("tempfile.utf8", sys.maxint)
+	os.remove("tempfile.utf8")
 
 if __name__ == '__main__':
-		optparser = optparse.OptionParser()
-		optparser.add_option("-c", "--sighan_to_crf", dest="c", action="store_true", default=False, help="Convert SIGHAN to CRFSUITE format.")
-		optparser.add_option("-s", "--crf_to_sighan", dest="s", action="store_true", default=False, help="Convert CRFSUITE format to SIGHAN.")
-		optparser.add_option("-i", "--input_filename", dest="i", default="data/training_seg.utf8", help="Input filename.")
-		optparser.add_option("-n", "--num_lines", dest="i", default=sys.maxint, help="Number of input lines.")
-		optparser.add_option("-p", "--pred_to_sighan", dest="p", action="store_true", default=False, help="Convert predictions to SIGHAN.")
-		(opts,_) = optparser.parse_args()
-		if (not opts.c and not opts.s and not opts.p):
-			optparser.print_help()
-		elif opts.c:
-			sighan_to_crf(opts.i, opts.n)
-		elif opts.s:
-			crf_to_sighan(opts.i, opts.n)
-		elif opts.p:
-			crf_predictions_to_sighan("output/test_crfsuite.utf8", "output/tag_predictions2.utf8")
+	optparser = optparse.OptionParser()
+	optparser.add_option("-c", "--sighan_to_crf", dest="c", action="store_true", default=False, help="Convert SIGHAN to CRFSUITE format.")
+	optparser.add_option("-s", "--crf_to_sighan", dest="s", action="store_true", default=False, help="Convert CRFSUITE format to SIGHAN.")
+	optparser.add_option("-i", "--input_filename", dest="i", default="data/training_seg.utf8", help="Input filename.")
+	optparser.add_option("-n", "--num_lines", dest="i", default=sys.maxint, help="Number of input lines.")
+	optparser.add_option("-p", "--pred_to_sighan", dest="p", action="store_true", default=False, help="Convert predictions to SIGHAN.")
+	(opts,_) = optparser.parse_args()
+	if (not opts.c and not opts.s and not opts.p):
+		optparser.print_help()
+	elif opts.c:
+		sighan_to_crf(opts.i, opts.n)
+	elif opts.s:
+		crf_to_sighan(opts.i, opts.n)
+	elif opts.p:
+		crf_predictions_to_sighan("output/test_crfsuite.utf8", "output/tag_predictions2.utf8")
