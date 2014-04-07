@@ -30,17 +30,18 @@ templates = (
 
 import crfutils
 import unicodedata
+import sys
 
 # Return whether the given character is punctuation.
 # Specifically, whether it is a member of a Unicode 
 # punctuation character class.
 def is_punct(c):
 	punct_categories = ['Pc', 'Pd', 'Pe', 'Pf', 'Pi', 'Po', 'Ps']
-    c = c.decode('utf-8')
-    if unicodedata.category(c) in punct_categories:
-        return "1"
-    else:
-        return "0"
+	c = c.decode('utf-8')
+	if unicodedata.category(c) in punct_categories:
+		return "1"
+	else:
+		return "0"
 
 # Return whether the given character's "class", where
 # class = 1 if numeric, 2 if english letter, 3 otherwise.
@@ -62,6 +63,10 @@ def feature_extractor(X):
     map(lambda x: x['F'].append("punct=" + is_punct(x['c'])), X)
     # Add the char_class() feature.
     map(lambda x: x['F'].append("class=" + char_class(x['c'])), X)
+
+def generate(infile, outfile):
+	sys.stderr.write("Generating features.\n")
+	crfutils.main(feature_extractor, fields, separator, open(infile, 'r'), open(outfile, 'w'))
 
 if __name__ == '__main__':
     crfutils.main(feature_extractor, fields=fields, sep=separator)
