@@ -26,8 +26,7 @@ import tempfile
 # B = beginning of word tag. N = non-beginning of word tag.
 # CHAR = Chinese character. A blank line separates sentences.
 # segname - filename of segmented corpus
-# n - number of lines to convert
-def sighan_to_tagged(segname, n, outfile=None):
+def sighan_to_tagged(segname, outfile=None):
 	sys.stderr.write("Converting SIGHAN to TAGGED format.\n")
 	if outfile == None:
 		out = codecs.getwriter("utf-8")(sys.stdout)
@@ -49,12 +48,10 @@ def sighan_to_tagged(segname, n, outfile=None):
 				else:
 					out.write(c + ' N\n')
 		out.write('\n')
-		n -= 1
-		if n == 0: break
 
 # Converts a TAGGED file into a segmented SIGHAN format file.
-# The SIGHAN format is one sentence per line, words delimited by two spaces.
-def tagged_to_sighan(crfname, n, outfile=None):
+# The SIGHAN format is one sentence per line, words delimited by a space.
+def tagged_to_sighan(crfname, outfile=None):
 	sys.stderr.write("Converting TAGGED to SIGHAN format.\n")
 	if outfile == None:
 		out = codecs.getwriter("utf-8")(sys.stdout)
@@ -75,8 +72,6 @@ def tagged_to_sighan(crfname, n, outfile=None):
 					out.write(' ' + c)
 			else:
 				out.write(c)
-		n -= 1
-		if n == 0: break
 
 # Pairs each character from the test set with its predicted tag.
 # Then converts the (character, tag) pairs into SIGHAN format.
@@ -104,7 +99,6 @@ if __name__ == '__main__':
 	optparser.add_option("-c", "--sighan_to_tagged", dest="c", action="store_true", default=False, help="Convert SIGHAN to CRFSUITE format.")
 	optparser.add_option("-s", "--tagged_to_sighan", dest="s", action="store_true", default=False, help="Convert CRFSUITE format to SIGHAN.")
 	optparser.add_option("-i", "--input_filename", dest="i", default="data/training_seg.utf8", help="Input filename.")
-	optparser.add_option("-n", "--num_lines", dest="i", default=sys.maxint, help="Number of input lines.")
 	optparser.add_option("-p", "--pred_to_sighan", dest="p", action="store_true", default=False, help="Convert predictions to SIGHAN.")
 	(opts,_) = optparser.parse_args()
 	if (not opts.c and not opts.s and not opts.p):

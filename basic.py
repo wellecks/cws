@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import optparse
 import codecs
-import sys
 import unicodedata
-import random
+import sys
+
 optparser = optparse.OptionParser()
-optparser.add_option("-f", "--unsegmented-input-file", dest="f", default="data/training_unseg.utf8", help="N-best lists")
-optparser.add_option("-n", "--num-training-sentences", dest="n", default=sys.maxint, type="int", help="Number of training sentences (default=all)")
-optparser.add_option("-o", "--output-file", dest="o", default="output/basic_output.utf8", help="Number of training sentences (default=all)")
+optparser.add_option("-f", "--unsegmented-test-file", dest="f", default="data/test_unseg.utf8", help="Unsegmented test file")
+optparser.add_option("-n", "--num-sentences", dest="n", default=sys.maxint, type="int", help="Number of sentences to process (default=all)")
+optparser.add_option("-o", "--output-file", dest="o", default="basic_output.utf8", help="Desired output file (default=basic_output.utf8)")
 (opts,_) = optparser.parse_args()
 
 # read in n lines of the given utf8 file
