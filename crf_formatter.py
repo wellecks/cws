@@ -6,7 +6,6 @@
 # Use -s flag for TAGGED      -> SIGHAN.
 # Use -p flag for predictions -> SIGHAN.
 # Use -i flag to specify input filename.
-# Use -n flag to specify number of input lines.
 # Outputs to STDOUT.
 #
 # Ex: python crf_formatter.py -c -i "data/test_seg.utf8" > data/test_sighan.utf8
@@ -91,7 +90,7 @@ def predictions_to_sighan(test_chars, tags, tagfile=None, outfile=None):
 					f.write((char + ' ' + tag).encode('utf-8'))
 				else:
 					f.write((char + ' ' + tag + '\n').encode('utf-8'))
-	tagged_to_sighan(tempname, sys.maxint, outfile)
+	tagged_to_sighan(tempname, outfile)
 	os.unlink(temp.name)
 
 if __name__ == '__main__':

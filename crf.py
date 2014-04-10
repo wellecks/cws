@@ -63,9 +63,12 @@ def test(model, testing, outfile):
 
 def evaluate(dictionary, targets, predictions):
 	sys.stderr.write("Evaluating predictions.\n")
+	if not os.path.isfile("./score"):
+		sys.stderr.write("score script not detected.")
+		return
 	cmd = ["./score",  dictionary, targets, predictions]
 	score, _ = Popen(cmd, stdout=PIPE).communicate()
-	print score
+	print(score)
 
 if __name__ == '__main__':
 	optparser = optparse.OptionParser()
