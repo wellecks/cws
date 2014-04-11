@@ -38,7 +38,8 @@ def train(model, trainset):
 	features.generate(training_tagfile.name, training_features.name)
 
 	# Call CRFSuite using the command line to train a CRF model.
-	cmd = ["crfsuite",  "learn", "-m", model, training_features.name]
+
+	cmd = None ### YOUR CODE HERE: define the command.
 	call(cmd)
 
 	# clear the temp files
@@ -65,7 +66,8 @@ def test(model, testset, outfile):
 
 	# Call CRFSuite using the command line to tag the testing_features
 	# using your trained CRF model.
-	cmd = ["crfsuite",  "tag", "-m", model, testing_features.name]
+	
+	cmd = None ### YOUR CODE HERE: define the command.
 	predictions, _ = Popen(cmd, stdout=PIPE).communicate()
 	
 	# pair the testing characters with their predicted tags

@@ -1,69 +1,42 @@
-A Conditional Random Field model is implemented using several files:
+== Baseline Model README
 
-crf.py: The top level code to run the entire train / test / evaluate process.
+= Files
+A Conditional Random Field (CRF) model is implemented using several files:
 
-crf_formatter.py: Code to convert the original dataset to a tagged format, and vice versa.
+  crf.py: The top level code to run the entire train / test / evaluate process.
 
-features.py: Defines the model's features. Relies on code provided by CRFSuite.
+  crf_formatter.py: Code to convert the original dataset to a tagged format, and vice versa.
 
-crfutils.py, template.py: Code provided by CRFSuite to aid in defining features.
+  features.py: Defines the model's features. Relies on code provided by CRFSuite.
 
+  crfutils.py, template.py: Code provided by CRFSuite to aid in defining features.
 
+The code has comments to describe the code and different file formats.
+
+= Required Libraries
 The CRF model requires the CRFSuite library to run. Please follow the instructions
 found at http://www.chokkan.org/software/crfsuite/manual.html#id489766 to install
 CRFSuite on your machine. Also note that CRFSuite requires liblbfgs, found at
 http://www.chokkan.org/software/liblbfgs/.
 
+= Running
+Once CRFSuite is installed, to run the training, testing, and evaluation with default files,
+use the command:
+	
+	python crf.py
 
-In this homework, we'll use a Conditional Random Field to segment Chinese words.
-Using a conditional random field for Chinese Word Segmentation involves three main parts:
+Non-default filenames can be passed in as command-line arguments.
 
-1. Learning to use an existing CRF library, which could be applicable to future MT, ML, or NLP projects.
+The training takes ~45 minutes on a MacBook Pro. 
 
-2. Posing the problem as a tagging problem.
+= Output
+At the end, a segmented file is created (default is output/predictions.utf8)
+and the scoring result will be printed to STDOUT.
 
-3. Defining good features.
+The included model results in a score of 0.926 precision, 0.916 f-measure, 0.907 recall, (0.916 average).
 
-The code that is commented out corresponds to each of these three parts. 
-
-For (1), installing CRFSuite and reading through the tutorial gives an idea of how it works. Then,
-the commands to train the model, and to run it on the test set are commented out in crf.py.
-
-For (2), we can assign a tag to each character based on whether it begins a new word (B) or does not
-begin a new word (N). The segmenting problem becomes a problem of assigning tags to the characters.
-In order to view the problem this way, we first need to tag the training set. This involves iterating
-through each character in the dataset, and assigning either a B or N tag. 
-
-For (3), we define features for the CRF model. The main type of feature is a positional feature
-that takes into account a character and its local context. An example would be (C[0], C[1]), which
-corresponds to the current character and its successor. features.py contains an easy way of defining
-such features using a 'template'. Your task is to define some of these features; see the paper
-http://www.newdesign.aclweb.org/anthology/Y/Y06/Y06-1012.pdf for some good ideas.
-
-In addition, you can define your own feature functions without the templates. An example feature could
-be whether the current character is punctuation. Defining some feature functions may be helpful in
-increasing your model's score.
-
-
-Using the CRF involves several steps:
-
-Training
-1. Start: Segmented Training Set  	(data/train_seg.utf8)
-2. Convert to Tagged Training Set 	(crf_formatter.sighan_to_tagged())
-3. Convert Tagged to Feature Set  	(features.generate())
-4. Train the CRF model			  	(CRFSuite on command line)
-5: End: Trained Model 			  	(models/crf.model)
-
-Testing
-1. Start: Unsegmented Test Set 		(data/test_unseg.utf8)
-2. Format as 'Tagged' Test Set 		(crf_formatter.sighan_to_tagged())
-	Note: These are just placeholder tags. We predict the tags in step 4.
-3. Convert Tagged to Feature Set  	(features.generate())
-4. Predict tags for the Test Set  	(CRFSuite on command line)
-5. Convert predicted tags to text   (crf_formatter.predictions_to_sighan())
-6. End: Segmented Test Set 			(output/predictions.utf8)
-
-Evaluation
-1. Score the predicted test set against the actual segmented test set.
-	(./score data/dict.utf8 data/test_seg.utf8 output/predictions.utf8)
-
+= Commented Version
+Code is commented-out in three different areas. The commented versions are found in:
+  crf_commented.py           (the commands to run CRFSuite)
+  crf_formatter_commented.py (formatting functions)
+  features_commented.py      (defining feature templates and feature functions)

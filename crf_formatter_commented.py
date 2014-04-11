@@ -41,22 +41,8 @@ import tempfile
 def text_to_tagged(corpus, outfile):
 	sys.stderr.write("Converting SIGHAN text format to TAGGED format.\n")
 	out = codecs.open(outfile, 'wb', encoding='utf-8')
-	for line in codecs.open(corpus, 'r', encoding='utf-8'):
-		numspaces = 0
-		first = True
-		for c in line:
-			if c == ' ':
-				numspaces += 1
-				if numspaces == 2:
-					first = True
-					numspaces = 0
-			elif c != '\r' and c != '\n':
-				if first:
-					out.write(c + ' B\n')
-					first = False
-				else:
-					out.write(c + ' N\n')
-		out.write('\n')
+	# YOUR CODE HERE - tag the corpus and output to outfile.
+
 
 # Converts a tagged file into a segmented SIGHAN format file.
 # The text format is one sentence per line, words delimited by a space.
@@ -65,21 +51,7 @@ def text_to_tagged(corpus, outfile):
 def tagged_to_text(tagged, outfile):
 	sys.stderr.write("Converting TAGGED to SIGHAN text format.\n")
 	out = codecs.open(outfile, 'wb', encoding='utf-8')
-	start = True
-	for line in codecs.open(tagged, 'r', encoding='utf-8'):
-		if line == '\n':
-			out.write('\n')
-			start = True
-		else:
-			c, tag = line.split(' ')
-			if tag.strip() == u'B':
-				if start:
-					out.write(c)
-					start = False
-				else:
-					out.write(' ' + c)
-			else:
-				out.write(c)
+	# YOUR CODE HERE - convert the tagged file back to the SIGHAN text format.
 
 # Pairs each character from the test set with its predicted tag.
 # Then converts the (character, tag) pairs into a SIGHAN text format.
@@ -89,17 +61,4 @@ def tagged_to_text(tagged, outfile):
 # outfile   - desired name for segmented output text file.
 def predictions_to_text(test_tags, pred_tags, outfile):
 	sys.stderr.write("Pairing characters with tags.\n")
-	chrs = codecs.open(test_tags, 'r', encoding='utf-8')
-	temp = tempfile.NamedTemporaryFile(delete=False)
-	tempname = temp.name
-	with temp as f:
-		for (char, tag) in zip([line[0] for line in chrs], [line for line in tags]):
-			if char == '\n':
-				f.write('\n')
-			else:
-				if tagfile:
-					f.write((char + ' ' + tag).encode('utf-8'))
-				else:
-					f.write((char + ' ' + tag + '\n').encode('utf-8'))
-	tagged_to_text(tempname, outfile)
-	os.unlink(temp.name)
+	# YOUR CODE HERE - pair the test characters with the tags output by crfsuite.
