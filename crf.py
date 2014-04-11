@@ -1,3 +1,6 @@
+## Word Segmentation with Conditional Random Fields
+#  Sean Welleck | 2014
+#
 # Runs the entire CRF word segmentation process.
 # Given an input training file, and an unsegmented testing file,
 # produces a segmented testing file using a trained model.

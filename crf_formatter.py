@@ -2,7 +2,8 @@
 
 ### crf_formatter.py
 # Converts files to / from lines of text and TAGGED formats.
-#
+# Sean Welleck | 2014
+# 
 # The Text format is one sentence per line, with characters and punctuation
 # separated by spaces. The is the format specified by the SIGHAN competition:
 # (http://www.sighan.org/bakeoff2005/data/instructions.php.htm).
