@@ -27,11 +27,11 @@ The dataset is provided by Beijing University. The training data has 1.1M Chines
 
 
 ##Your Task
-Your task is to use Conditional Random Fields to segment Chinese words. For a good background, see [Chinese Segmentation and New Word Detection using Conditional Random Fields](http://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1091&context=cs_faculty_pubs).
+Your task is to use Conditional Random Fields to segment Chinese words. For a good background, see [Chinese Segmentation and New Word Detection using Conditional Random Fields](http://scholarworks.umass.edu/cgi/viewcontent.cgi?article=1091&context=cs_faculty_pubs). (Note: of course you could also create a completely different model (e.g. compression-based) to beat the baseline!)
 
 You can use the [CRFsuite](http://www.chokkan.org/software/crfsuite/) library to implement the model; several files have also been provided to help you implement the system.
 
-First, install CRFsuite by following the instructions found [here](http://www.chokkan.org/software/crfsuite/manual.html#id489766). Then, read through [the tutorial](http://www.chokkan.org/software/crfsuite/tutorial.html) to get an idea of how the library works. You can then fill out the commands to train the model, and to run it on the test set in`crf.py`.
+First, install CRFsuite by following the instructions found [here](http://www.chokkan.org/software/crfsuite/manual.html#id489766). Then, read through [the tutorial](http://www.chokkan.org/software/crfsuite/tutorial.html) to get an idea of how the library works. You can then fill out the commands to train the model, and to run it on the test set in `crf.py`.
 
 Next, pose word segmentation as a tagging problem by assigning a tag to each character based on whether it begins a new word (B) or does not begin a new word (N). The segmenting problem becomes a problem of assigning tags to the characters of a test sequence. In order to view the problem this way, we first need to tag the training set; to do so, fill in the functions found in `crf_formatter.py`. The CRFsuite tutorial is again helpful in understanding this step.
 
@@ -39,5 +39,3 @@ Finally, we define features for the CRF model. `features.py` contains an easy wa
 http://www.newdesign.aclweb.org/anthology/Y/Y06/Y06-1012.pdf for some good ideas. In addition, you can define your own feature functions without the templates. An example feature could be whether the current character is punctuation. Defining novel feature functions may be helpful in increasing your model's score.
 
 To run the entire train / test / score process, use the command `python crf.py`. By default, the predicted segmentations will be written to `output/predictions.utf8`. Non-default filenames can be passed in as command-line arguments.
-
-Note: of course you could also create a completely different model (e.g. Compression-based) to beat the baseline!
