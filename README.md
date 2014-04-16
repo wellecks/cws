@@ -39,3 +39,11 @@ Finally, we define features for the CRF model. `features.py` contains an easy wa
 http://www.newdesign.aclweb.org/anthology/Y/Y06/Y06-1012.pdf for some good ideas. In addition, you can define your own feature functions without the templates. An example feature could be whether the current character is punctuation. Defining novel feature functions may be helpful in increasing your model's score.
 
 To run the entire train / test / score process, use the command `python crf.py`. By default, the predicted segmentations will be written to `output/predictions.utf8`. Non-default filenames can be passed in as command-line arguments.
+
+Using the baseline model, you should see the following output at the end:
+```bash
+=== TOTAL TRUE WORDS RECALL:	0.907
+=== TOTAL TEST WORDS PRECISION:	0.926
+=== F MEASURE:	0.916
+0.916333
+```
