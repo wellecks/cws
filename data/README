@@ -1,8 +1,8 @@
 CIS 526 Final Project - Data
-Sean Welleck
-
-For my project, Chinese Word Segmentation (CWS), I will use this dataset provided by Beijing University. The dataset was used in the 2nd International Chinese Word Segmentation Bakeoff, a competition held to evaluate CWS systems.
+This dataset is provided by Beijing University. The dataset was used in the 2nd International Chinese Word Segmentation Bakeoff, a competition held to evaluate CWS systems.
 
 The data consists of training and test data. The training data has 1.1M Chinese words that are separated by line into sentences. The lines found in training_seg.utf8 are segmented Chinese characters, while training_unseg.utf8 has the corresponding unsegmented lines.
 
-The testing data consists of 104K Chinese words. Similar to the training set, there is a segmented file (testing_seg.utf8) and a corresponding unsegmented file (testing_unseg.utf8).
+The testing data consists of 104K Chinese words. Similar to the training set, there is a segmented file (testing_seg.utf8) and a corresponding unsegmented file (testing_unseg.utf8). 
+
+A lexicon is included, which is used by the scoring script (dict.utf8).
